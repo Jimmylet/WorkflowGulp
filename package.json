@@ -24,14 +24,17 @@
     "browser-sync": "^2.16.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
     "gulp-dest-clean": "^0.5.0",
     "gulp-htmlclean": "^2.7.6",
     "gulp-imacss": "^1.0.0",
     "gulp-imagemin": "^3.0.3",
+    "gulp-minify": "0.0.14",
     "gulp-newer": "^1.2.0",
     "gulp-preprocess": "^2.0.0",
     "gulp-pug": "^3.0.4",
     "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.5.0"
   }
 }

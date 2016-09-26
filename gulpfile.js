@@ -12,6 +12,9 @@ var
     pkg = require('./package.json'),
     browserSync = require('browser-sync'),
     pug = require('gulp-pug'), // Préprocesseur html
+    minify = require('gulp-minify'),
+    concat = require('gulp-concat'), // Minificateur JS et COMB
+    sourcemaps = require('gulp-sourcemaps'),
     del = require('del');
 
 // Définition de quelques variables générales pour notre gulpfile
@@ -41,6 +44,15 @@ var
       out: dest + 'css/'
     },
 
+    jsOpts = {
+        in: source + 'scripts/*.js',
+        watch: [source + 'scripts/*.js'],
+        out: dest + "scripts",
+        context: {
+            devBuild: devBuild
+        }
+    },
+
     pugOpts = {
         in: source + '*.pug',
         watch: [source + '*.pug', source + 'template/**/*'],
@@ -49,6 +61,10 @@ var
             devBuild: devBuild,
             author: pkg.author
         }
+    },
+
+    sourcemapsOpts = {
+        addComment: false
     },
 
     syncOptions = {
@@ -103,15 +119,30 @@ gulp.task('pug', function () {
                 .pipe(size({title:'HTML après minification:'}));
         }
         return page.pipe(gulp.dest(pugOpts.out));
-})
+});
+
+gulp.task('concat', function () {
+           var jsConcat = gulp.src(jsOpts.in)
+
+    if(!devBuild) {
+            jsConcat = jsConcat
+                    .pipe(sourcemaps.init())
+                    .pipe(concat('main.js'))
+                    .pipe(minify())
+                    .pipe(sourcemaps.write({addComment: false}))
+    }
+    return jsConcat.pipe(gulp.dest(jsOpts.out));
+
+});
 
 gulp.task('browserSync', function() {
   browserSync(syncOptions);
 });
 
 // Tâche par défaut exécutée lorsqu’on tape juste *gulp* dans le terminal
-gulp.task('default', ['images', 'stylus', 'pug', 'browserSync'], function () {
+gulp.task('default', ['images', 'stylus', 'pug', 'browserSync', 'concat'], function () {
     gulp.watch(pugOpts.watch, ['pug', browserSync.reload]);
+    gulp.watch(jsOpts.watch, ['concat', browserSync.reload]);
     gulp.watch(imagesOpts.watch, ['images']);
     gulp.watch(cssStylus.watch, ['stylus']);
 });
