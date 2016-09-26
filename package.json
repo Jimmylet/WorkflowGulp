@@ -1,0 +1,37 @@
+{
+  "name": "mysite",
+  "version": "1.0.0",
+  "description": "A small test about Gulp",
+  "main": "build/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jimmylet/discover-gulp.git"
+  },
+  "keywords": [
+    "Jimmy",
+    "Letecheur"
+  ],
+  "author": "Jimmy Letecheur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jimmylet/discover-gulp/issues"
+  },
+  "homepage": "https://github.com/Jimmylet/discover-gulp#readme",
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-dest-clean": "^0.5.0",
+    "gulp-htmlclean": "^2.7.6",
+    "gulp-imacss": "^1.0.0",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-newer": "^1.2.0",
+    "gulp-preprocess": "^2.0.0",
+    "gulp-pug": "^3.0.4",
+    "gulp-size": "^2.1.0",
+    "gulp-stylus": "^2.5.0"
+  }
+}
