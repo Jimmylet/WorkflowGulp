@@ -7,6 +7,8 @@ var
     size = require('gulp-size'), // Connaître la taille d'un fichier
     imacss = require('gulp-imacss'), // Convert image to DATAuri
     stylus = require('gulp-stylus'), // Preprocesseur stylus
+    koutoSwiss = require('kouto-swiss'),
+    autoprefixer = require('autoprefixer-stylus'),
     htmlclean = require('gulp-htmlclean'),
     preprocess = require('gulp-preprocess'),
     pkg = require('./package.json'),
@@ -63,10 +65,6 @@ var
         }
     },
 
-    sourcemapsOpts = {
-        addComment: false
-    },
-
     syncOptions = {
       server: {
         baseDir: dest,
@@ -102,7 +100,9 @@ gulp.task('imageuri', function () {
 
 gulp.task('stylus', function () {
    return gulp.src(cssStylus.in)
-        .pipe(stylus())
+        .pipe(stylus({
+            use: [autoprefixer('last 7 versions', 'ie 8'), koutoSwiss()],
+        }))
         .pipe(gulp.dest(cssStylus.out))
         .pipe(browserSync.reload({stream: true}));
 });
